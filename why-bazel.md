@@ -46,6 +46,38 @@ A build system is a tool that helps you go from source code to deployable artifa
 
 ---
 
+# History of Build Systems
+
+---
+
+## Make
+- Introduced in 1976
+- Originally designed for building C programs
+- Uses `Makefile` to define build targets and dependencies
+
+---
+
+## CMake
+- Developed in 2000
+- Cross-platform build system
+- Generates native build files (e.g., Makefiles, Visual Studio projects)
+
+---
+
+## Maven
+- Created in 2004
+- Primarily used for Java projects
+- Manages project dependencies and builds using declarative XML files
+
+---
+
+## Gradle
+- Introduced in 2007
+- Builds on the concepts of Apache Ant and Maven
+- Supports multiple languages and flexible build configurations
+
+---
+
 ## What is Bazel?
 
 - Open-source build system developed by Google
