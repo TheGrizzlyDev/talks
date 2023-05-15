@@ -1,89 +1,113 @@
 ---
 marp: true
-title: Bazel: The Build System for Scalable, Deterministic, Multi-Language Builds
-author: Your Name
-date: Insert Date Here
+title: Bazel: What's Bazel? Why should you care?
+author: Antonio Di Stefano
+date: 23/05/2023
 ---
 
-# Introduction
-
-- Briefly introduce yourself and your background in software development
-- Explain the purpose of the presentation and the agenda
-- Provide an overview of the challenges of build systems and how they impact software development
+# What's Bazel? Why should you care?
 
 ---
 
-# The Challenges of Build Systems
+## What is this talk about?
 
-- Discuss the problems that arise when dealing with large codebases
-- Explain how traditional build systems can become slow, complex, and difficult to maintain
-- Highlight the importance of a scalable, efficient build system in modern software development
-
----
-
-# Comparison of Bazel with Other Build Systems
-
-- Discuss the limitations of traditional build systems like Make, Ant, and Gradle
-    - Show examples of complex build files and explain how they can be difficult to understand and maintain
-    - Explain how these systems can struggle with scaling to large codebases
-- Highlight the strengths and advantages of Bazel over other build systems
-    - Discuss Bazel's scalability, determinism, multi-language and multi-platform support, and extensibility
-    - Provide examples of companies that have switched to Bazel from other build systems and the benefits they've seen as a result
+- What is a build system?
+- A short history of build systems
+- Challenges faced by builds at a large scale
+- Introduction to Bazel
 
 ---
 
-# Bazel Basics
+## Who am I?
 
-- Explain what Bazel is and what it's used for
-    - Show examples of the types of projects that Bazel is suited for
-- Introduce the Bazel command-line interface and the BUILD file format
-    - Provide examples of basic BUILD files and explain how they define targets and dependencies
-    - Show how to use the `bazel` command-line tool to build and test a simple project
+Antonio Di Stefano
+
+DevEx engineer @ Engflow
 
 ---
 
-# Bazel in Depth
+## What is a build system?
 
-- Discuss how Bazel can handle large, complex codebases
-    - Explain Bazel's incremental build system and how it can speed up development
-    - Show examples of how to use Bazel's query language to explore large codebases
-- Explain how Bazel's distributed caching system works
-    - Show how Bazel can cache build artifacts to speed up subsequent builds
-- Demonstrate how Bazel can provide deterministic builds and improve testability
-    - Explain how Bazel ensures that builds are reproducible and can be reliably tested
-    - Show how Bazel can be used with test frameworks to improve the reliability of tests
+A build system is a tool that helps you go from source code to deployable artifacts. It includes tasks such as:
+- Compiling code
+- Generating code
+- Running tests
+- Packaging artifacts (e.g., Docker images, JARs, .deb, .tar.gz, etc.)
 
 ---
 
-# Bazel in Action
+## Challenges of Build Systems
 
-- Provide examples of companies and organizations that use Bazel in their development workflows
-    - Show examples of how Bazel is used in production environments
-- Explain how Bazel has helped these companies improve their software development processes
-    - Discuss the benefits of faster builds, improved testability, and better reproducibility
-    - Provide examples of how Bazel has helped companies scale their development workflows
-
----
-
-# Conclusion
-
-- Summarize the key points and benefits of Bazel, including its advantages over traditional build systems
-- Provide resources for further learning about Bazel
+- Efficiency: Minimize work during builds
+- Reproducible Builds: Consistently generate results in any environment
+- Configurability: Allow users to customize builds
+- Multi-language and Multi-platform Support: Adapt to diverse ecosystems
+- Integration with Tooling and Third-party Code: Seamless integration with popular tools and dependency management
 
 ---
 
-# Q&A
+## What is Bazel?
 
-- Encourage questions from the audience
-- Provide answers to common questions about Bazel and its features
+- Open-source build system developed by Google
+- Designed for large, complex software projects
+- Scalable, deterministic, and supports multiple languages
+- Uses Starlark build language
+- Wide range of programming languages and platforms supported
+- Built-in caching and distributed builds for faster and efficient builds
 
 ---
 
-# Thank You!
+## Benefits of Bazel
 
-- Insert any final thoughts or acknowledgments here
-- Encourage questions from the audience
-- Provide resources for further learning about Bazel
+- Scalability:
+  - Incremental build system for faster builds
+  - Avoids recompiling and retesting unchanged code
+
+- Determinism:
+  - Reproducible and hermetic builds
+  - Consistent results across different environments
+
+- Multi-language and Multi-platform Support:
+  - Support for various languages and platforms
+  - Eases development of polyglot projects
+
+- Extensibility:
+  - Customizable with Starlark language
+  - Integration with existing tooling and frameworks
+
+---
+
+## Companies Using Bazel
+
+- Google: Bazel was originally developed by Google and extensively used internally
+- Uber: Utilizes Bazel for building and testing their large-scale codebase
+- Dropbox: Manages complex codebase and improves build times with Bazel
+- SpaceX: Relies on Bazel for rocket software development
+
+---
+
+## Conclusion
+
+- Bazel provides a robust solution for large, complex software projects
+- Addresses scalability, determinism, and multi-language support challenges
+- Adoption by major companies demonstrates its effectiveness
+- Consider adopting Bazel to improve efficiency, reliability, and productivity
+
+---
+
+## Questions?
+
+---
+
+## Thank You!
+
+- Contact information:
+  - Email: your.email@example.com
+  - LinkedIn: linkedin.com/in/your-profile
+
+- Additional resources:
+  - Bazel official website: bazel.build
+  - Bazel GitHub repository: github.com/bazelbuild/bazel
 
 ---
 
