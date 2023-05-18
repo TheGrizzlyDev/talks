@@ -218,13 +218,12 @@ cc_test(
 
 ### Pros:
 
-- Works with a plethora of languages out-of-the-box
+- Works with a plethora of languages out-of-the-box and can easily be extended
+- Remote caching and remote execution support
 - Smarter and more reliable caching based on content hashing
-- Very extendable
-- Has its own dependency management: `blzmod`
-- Optimised for speed and reproducibility
-- Powerful toolchains system that makes build very portable
+- Optimised for speed, reproducibility and portability
 - Developed by Google
+- Used by a bunch of tech giants like: Uber, Dropbox, SpaceX, ...
 
 ### Cons:
 
@@ -233,42 +232,12 @@ cc_test(
 
 ---
 
-
-## Benefits of Bazel
-
-- Scalability:
-  - Incremental build system for faster builds
-  - Avoids recompiling and retesting unchanged code
-
-- Determinism:
-  - Reproducible and hermetic builds
-  - Consistent results across different environments
-
-- Multi-language and Multi-platform Support:
-  - Support for various languages and platforms
-  - Eases development of polyglot projects
-
-- Extensibility:
-  - Customizable with Starlark language
-  - Integration with existing tooling and frameworks
-
----
-
-## Companies Using Bazel
-
-- Google: Bazel was originally developed by Google and extensively used internally
-- Uber: Utilizes Bazel for building and testing their large-scale codebase
-- Dropbox: Manages complex codebase and improves build times with Bazel
-- SpaceX: Relies on Bazel for rocket software development
-
----
-
 ## Conclusion
 
 - Bazel provides a robust solution for large, complex software projects
 - Addresses scalability, determinism, and multi-language support challenges
-- Adoption by major companies demonstrates its effectiveness
 - Consider adopting Bazel to improve efficiency, reliability, and productivity
+- Adoption by major companies demonstrates its effectiveness
 
 ---
 
@@ -279,12 +248,9 @@ cc_test(
 ## Thank You!
 
 - Contact information:
-  - Email: your.email@example.com
-  - LinkedIn: linkedin.com/in/your-profile
+  - Email: antonio@engflow.com
+  - LinkedIn: https://uk.linkedin.com/in/antonio-di-stefano-405230108
 
 - Additional resources:
-  - Bazel official website: bazel.build
-  - Bazel GitHub repository: github.com/bazelbuild/bazel
-
----
-
+  - Bazel official website: https://bazel.build
+  - Bazel GitHub repository: https://github.com/bazelbuild/bazel
