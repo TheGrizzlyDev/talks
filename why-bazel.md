@@ -222,26 +222,127 @@ cc_test(
 - Remote caching and remote execution support
 - Smarter and more reliable caching based on content hashing
 - Optimised for speed, reproducibility and portability
-- Developed by Google
 - Used by a bunch of tech giants like: Uber, Dropbox, SpaceX, ...
 
 ### Cons:
 
 - Tooling support could improve
-- Developed by Google
 
 ---
 
-## Conclusion
-
-- Bazel provides a robust solution for large, complex software projects
-- Addresses scalability, determinism, and multi-language support challenges
-- Consider adopting Bazel to improve efficiency, reliability, and productivity
-- Adoption by major companies demonstrates its effectiveness
+## Bazel in-depth
 
 ---
 
-## Questions?
+### Target
+
+A target is something that bazel can build. In its simplest form a target is made of:
+
+- 0..N input files
+- 0..N output files
+- 0..N actions
+
+---
+
+### Actions
+
+Actions are atomic commands that are executed in a build to generate outputs from a given set of input. A good example is an action running a compiler or a code-generator
+
+---
+
+### Workspaces
+
+A workspace in bazel is simply a directory containing any number of source files and a WORKSPACE file at the top-level path of said workspace.
+
+```
+/a: directory
+    /WORKSPACE
+    /b: directory
+        /WORKSPACE
+    /c: directory
+        /source.c
+```
+
+---
+
+### Package
+
+A package in Bazel is a sub-path in a repository containing a BUILD file and any amount of other files. Each package may have any amount of build targets.
+
+--- 
+
+### Labels
+
+Labels are unique identifiers for targets. A label in bazel follows the following structure:
+
+`@workspace_name//package_name:target_name`
+
+`@` is the current workspace, but it's often times omitted.
+
+---
+
+### BUILD files
+
+`BUILD` (or `BUILD.bazel`) files use macros and rules to instantiate various kinds of build targets
+
+---
+
+### Rules
+
+Allow defining custom reusable logic for build rules
+
+```python
+def _hello_world_impl(ctx):
+    output_file = ctx.outputs.out
+    ctx.actions.write(output_file, "Hello World!\n")
+
+hello_world = rule(
+    implementation = _hello_world_impl,
+    attrs = {},
+    outputs = {"out": "%{name}.txt"},
+)
+```
+
+---
+
+### Macros
+
+Can be used to combine or simplify existing rules
+
+```python
+def cc_lib_and_binary(name, **kwargs):
+  lib_name = "%s.lib" % name
+  
+  cc_library(
+    name = lib_name,
+    **kwargs,
+  )
+
+  deps = kwargs.pop("deps", []) + [lib_name]
+  cc_binary(
+    name = name,
+    deps = deps,
+    **kwargs
+  )
+```
+
+---
+
+### Bazel flags and .bazelrc
+
+Bazel provides a huge amount of flags to configure the build and even allows you to define more. `.bazelrc` makes it easier to preset, standardize and categorize flags within a codebase.
+
+```
+build --cxxopt="-std=c++14"
+build --host_cxxopt="-std=c++14"
+
+build:ci --color=yes
+build:ci --curses=yes
+build:ci --show_timestamps
+build:ci --announce_rc
+
+build:rbe --remote_executor=grpcs://rbe.cluster.engflow.com
+```
 
 ---
 
