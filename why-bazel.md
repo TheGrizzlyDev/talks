@@ -346,6 +346,17 @@ build:rbe --remote_executor=grpcs://rbe.cluster.engflow.com
 
 ---
 
+## Useful tools
+
+- Gazelle: a multi-language build file generator
+- Buildozer: powerful build editor/rewriter
+- Bazelisk: bazel's de-facto version manager
+- Exodus: migration tool from maven to bazel developed at Wix
+- awesomebazel.com: amazing resource to find out more about the growing bazel ecosystem 
+
+
+---
+
 ## Thank You!
 
 - Contact information:
