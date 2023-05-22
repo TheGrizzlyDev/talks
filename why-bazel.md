@@ -83,13 +83,13 @@ g++ -Wall ... -o test test.cc
 ```make
 CXX=g++
 CXX_FLAGS=-Wall ...
-build_lib:
+lib:
   $(CXX) $(CXX_FLAGS) -o lib lib.cc
-build_main: build_lib
+main: lib
   $(CXX) $(CXX_FLAGS) -o main main.cc
-build_test: build_lib
+test: lib
   $(CXX) $(CXX_FLAGS) -o test test.cc
-test:
+run_test:
   ./test
 ```
 
@@ -197,20 +197,20 @@ add_custom_target(
 
 ```python
 cc_library(
-  name="lib",
-  srcs=["lib.cc"],
+  name = "lib",
+  srcs = ["lib.cc"],
 )
 
 cc_binary(
-  name="main",
-  srcs=["main.cc"],
-  deps=[":lib"],
+  name = "main",
+  srcs = ["main.cc"],
+  deps = [":lib"],
 )
 
 cc_test(
-  name="test",
-  srcs=["test.cc"],
-  deps=[":lib"],
+  name = "test",
+  srcs = ["test.cc"],
+  deps = [":lib"],
 )
 ```
 
