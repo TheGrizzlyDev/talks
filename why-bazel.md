@@ -222,11 +222,12 @@ cc_test(
 - Remote caching and remote execution support
 - Smarter and more reliable caching based on content hashing
 - Optimised for speed, reproducibility and portability
-- Used by a bunch of tech giants like: Uber, Dropbox, SpaceX, ...
+- Used by a bunch of tech giants like: Google, Uber, Dropbox, SpaceX, ...
 
 ### Cons:
 
 - Tooling support could improve
+- Quite intimidating for newcomers
 
 ---
 
