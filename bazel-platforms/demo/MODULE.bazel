@@ -32,3 +32,6 @@ http_archive(
 
 # Register 7zip toolchains
 register_toolchains("//toolchains/7zip:7zip_linux_x64_toolchain")
+
+# Register mingw toolchains
+register_toolchains("//toolchains/mingw:mingw_x86_64_toolchain")
