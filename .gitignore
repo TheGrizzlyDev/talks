@@ -1,0 +1,4 @@
+bazel-*
+a.out
+a.exe
+!bazel-platforms
