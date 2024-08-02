@@ -1,0 +1,6 @@
+load("//toolchains/7zip:defs.bzl", "unzip_7z")
+
+unzip_7z(
+    name = "mingw_x86_64",
+    archive = "@dist_mingw_x86_64//file",
+)
