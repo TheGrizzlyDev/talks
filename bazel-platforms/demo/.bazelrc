@@ -1,2 +1,1 @@
-# build:multiarch --platforms=//platforms:linux_amd64_gcc,//platforms:win_amd64_mingw
-build:multiarch --platforms=//platforms:win_amd64_mingw
+build:win --platforms=//platforms:win_amd64_mingw
