@@ -4,11 +4,11 @@ def mingw_cc_toolchain_config_impl(ctx):
     tool_paths = [
         tool_path(
             name = "gcc",
-            path = "/usr/bin/clang",
+            path = "/usr/bin/x86_64-w64-mingw32-gcc",
         ),
         tool_path(
             name = "ld",
-            path = "/usr/bin/ld",
+            path = "/usr/bin/x86_64-w64-mingw32-ld",
         ),
         tool_path(
             name = "ar",
@@ -16,7 +16,7 @@ def mingw_cc_toolchain_config_impl(ctx):
         ),
         tool_path(
             name = "cpp",
-            path = "/bin/false",
+            path = "/usr/bin/x86_64-w64-mingw32-g++",
         ),
         tool_path(
             name = "gcov",
@@ -42,10 +42,16 @@ def mingw_cc_toolchain_config_impl(ctx):
         target_system_name = "local",
         target_cpu = "k8",
         target_libc = "unknown",
-        compiler = "clang",
+        compiler = "mingw",
         abi_version = "unknown",
         abi_libc_version = "unknown",
         tool_paths = tool_paths,
+        cxx_builtin_include_directories = [
+            "/usr/share/mingw-w64/include/",
+            "/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include/c++/",
+            "/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include/",
+            "/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include-fixed/",
+        ],
     )
 
 mingw_cc_toolchain_config = rule(

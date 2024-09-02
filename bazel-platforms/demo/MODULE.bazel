@@ -10,17 +10,29 @@ http_file = use_repo_rule(
 
 # mingw
 # All downloads page: https://www.mingw-w64.org/downloads/
+
 # mingw-builds-binaries prebuilt binaries: https://github.com/niXman/mingw-builds-binaries/releases
 http_file(
-    name = "dist_mingw_x86_64",
+    name = "dist_mingw_win_x86_64",
     urls = [
         "https://github.com/niXman/mingw-builds-binaries/releases/download/13.2.0-rt_v11-rev1/x86_64-13.2.0-release-posix-seh-ucrt-rt_v11-rev1.7z",
     ],
+    integrity = "sha256-R17nLFzhvVSj48M0vdO+XmV1M0GE/ZcYATqjYsmBnS8=",
+)
+
+# llvm-mingw: https://github.com/mstorsjo/llvm-mingw/releases
+http_archive(
+    name = "dist_mingw_linux_x86_64",
+    urls = [
+        "https://github.com/mstorsjo/llvm-mingw/releases/download/20240726/llvm-mingw-20240726-ucrt-ubuntu-20.04-x86_64.tar.xz",
+    ],
+    integrity = "sha256-a7CpOnvYtRMVIk953bhMtVY05UCcdtWX2B50MLskDzI=",
+    build_file = "//toolchains/mingw:BUILD.linux.mingw.bzl",
+    strip_prefix = "llvm-mingw-20240726-ucrt-ubuntu-20.04-x86_64",
 )
 
 # 7zip
 # Download page: https://www.7-zip.org/download.html
-
 http_archive(
     name = "dist_7zip_linux_x86_64",
     urls = [
@@ -34,4 +46,5 @@ http_archive(
 register_toolchains("//toolchains/7zip:7zip_linux_x64_toolchain")
 
 # Register mingw toolchains
-register_toolchains("//toolchains/mingw:mingw_x86_64_toolchain")
+register_toolchains("//toolchains/mingw:mingw_win_x86_64_toolchain")
+register_toolchains("//toolchains/mingw:mingw_linux_x86_64_toolchain")
