@@ -5,7 +5,7 @@ def mingw_cc_toolchain_config_impl(ctx):
         tool_path(name = tool, path = "bin/x86_64-w64-mingw32-{tool}".format(tool=tool))
         for tool in [
             "gcc",
-            "ld",
+            "ldadsdsa",
             "ar",
             "g++",
             "cpp",
