@@ -1,61 +1,26 @@
-load("@bazel_tools//tools/cpp:cc_toolchain_config_lib.bzl", "tool_path")
-
-def mingw_cc_toolchain_config_impl(ctx):
-    tool_paths = [
-        tool_path(
-            name = "gcc",
-            path = "/usr/bin/x86_64-w64-mingw32-gcc",
-        ),
-        tool_path(
-            name = "ld",
-            path = "/usr/bin/x86_64-w64-mingw32-ld",
-        ),
-        tool_path(
-            name = "ar",
-            path = "/usr/bin/ar",
-        ),
-        tool_path(
-            name = "cpp",
-            path = "/usr/bin/x86_64-w64-mingw32-g++",
-        ),
-        tool_path(
-            name = "gcov",
-            path = "/bin/false",
-        ),
-        tool_path(
-            name = "nm",
-            path = "/bin/false",
-        ),
-        tool_path(
-            name = "objdump",
-            path = "/bin/false",
-        ),
-        tool_path(
-            name = "strip",
-            path = "/bin/false",
-        ),
-    ]
-    return cc_common.create_cc_toolchain_config_info(
-        ctx = ctx,
-        toolchain_identifier = "k8-toolchain",
-        host_system_name = "local",
-        target_system_name = "local",
-        target_cpu = "k8",
-        target_libc = "unknown",
-        compiler = "mingw",
-        abi_version = "unknown",
-        abi_libc_version = "unknown",
-        tool_paths = tool_paths,
-        cxx_builtin_include_directories = [
-            "/usr/share/mingw-w64/include/",
-            "/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include/c++/",
-            "/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include/",
-            "/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include-fixed/",
-        ],
+def mingw_linux_toolchain_impl(repo_ctx):
+    repo_ctx.download_and_extract(
+        url=repo_ctx.attr.urls,
+        sha256=repo_ctx.attr.sha256,
+        stripPrefix=repo_ctx.attr.strip_prefix,
     )
+    template_subs = {
+        "{exec_os}": repo_ctx.attr.os,
+        "{exec_arch}": repo_ctx.attr.arch,
+    }
+    repo_ctx.template("BUILD.bazel", repo_ctx.attr._build_tmpl, substitutions=template_subs)
+    repo_ctx.template("configure.bzl", repo_ctx.attr._configure_tmpl, substitutions=template_subs)
 
-mingw_cc_toolchain_config = rule(
-    implementation = mingw_cc_toolchain_config_impl,
-    attrs = {},
-    provides = [CcToolchainConfigInfo],
+
+mingw_linux_toolchain = repository_rule(
+    mingw_linux_toolchain_impl,
+    attrs = {
+        "os": attr.string(),
+        "arch": attr.string(),
+        "sha256": attr.string(),
+        "strip_prefix": attr.string(),
+        "urls": attr.string_list(),
+        "_build_tmpl": attr.label(default = "//toolchains/mingw:BUILD.mingw.tmpl.bzl"),
+        "_configure_tmpl": attr.label(default = "//toolchains/mingw:configure.tmpl.bzl"),
+    }
 )
