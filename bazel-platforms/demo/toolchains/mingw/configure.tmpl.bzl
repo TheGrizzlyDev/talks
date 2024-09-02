@@ -2,38 +2,18 @@ load("@bazel_tools//tools/cpp:cc_toolchain_config_lib.bzl", "tool_path")
 
 def mingw_cc_toolchain_config_impl(ctx):
     tool_paths = [
-        tool_path(
-            name = "gcc",
-            path = "/usr/bin/x86_64-w64-mingw32-gcc",
-        ),
-        tool_path(
-            name = "ld",
-            path = "/usr/bin/x86_64-w64-mingw32-ld",
-        ),
-        tool_path(
-            name = "ar",
-            path = "/usr/bin/ar",
-        ),
-        tool_path(
-            name = "cpp",
-            path = "/usr/bin/x86_64-w64-mingw32-g++",
-        ),
-        tool_path(
-            name = "gcov",
-            path = "/bin/false",
-        ),
-        tool_path(
-            name = "nm",
-            path = "/bin/false",
-        ),
-        tool_path(
-            name = "objdump",
-            path = "/bin/false",
-        ),
-        tool_path(
-            name = "strip",
-            path = "/bin/false",
-        ),
+        tool_path(name = tool, path = "bin/x86_64-w64-mingw32-{tool}".format(tool=tool))
+        for tool in [
+            "gcc",
+            "ld",
+            "ar",
+            "g++",
+            "cpp",
+            "gcov",
+            "nm",
+            "objdump",
+            "strip",
+        ]
     ]
     return cc_common.create_cc_toolchain_config_info(
         ctx = ctx,
@@ -47,10 +27,8 @@ def mingw_cc_toolchain_config_impl(ctx):
         abi_libc_version = "unknown",
         tool_paths = tool_paths,
         cxx_builtin_include_directories = [
-            "/usr/share/mingw-w64/include/",
-            "/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include/c++/",
-            "/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include/",
-            "/usr/lib/gcc/x86_64-w64-mingw32/10-win32/include-fixed/",
+            "x86_64-w64-mingw32/include",
+            "x86_64-w64-mingw32/include/c++/v1",
         ],
     )
 
