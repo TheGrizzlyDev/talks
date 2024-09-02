@@ -22,7 +22,7 @@ cc_toolchain(
     toolchain_identifier = "mingw_{exec_os}_{exec_arch}",
     toolchain_config = ":toolchain_config",
     all_files = ":all_srcs",
-    compiler_files = ":compiler_srcs",
+    compiler_files = ":all_srcs",
     dwp_files = ":all_srcs",
     linker_files = ":all_srcs",
     objcopy_files = ":all_srcs",

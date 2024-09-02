@@ -7,7 +7,9 @@ def mingw_linux_toolchain_impl(repo_ctx):
     template_subs = {
         "{exec_os}": repo_ctx.attr.os,
         "{exec_arch}": repo_ctx.attr.arch,
+        "{repo}": repo_ctx.name,
     }
+    print(template_subs)
     repo_ctx.template("BUILD.bazel", repo_ctx.attr._build_tmpl, substitutions=template_subs)
     repo_ctx.template("configure.bzl", repo_ctx.attr._configure_tmpl, substitutions=template_subs)
 
