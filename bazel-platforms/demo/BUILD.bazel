@@ -2,11 +2,22 @@ cc_library(
     name = "lib",
     srcs = ["lib.cc"],
     hdrs = ["lib.hh"],
+)
 
+cc_test(
+    name = "lib_test.exe",
+    srcs = glob(["*_test.cc"]),
+    deps = [
+        ":lib",
+        "@googletest//:gtest",
+        "@googletest//:gtest_main",
+    ],
 )
 
 cc_binary(
     name = "hello_worlder.exe",
     srcs = ["main.cc"],
-    deps = [":lib"],
+    deps = [
+        ":lib",
+    ],
 )
