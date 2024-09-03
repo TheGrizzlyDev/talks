@@ -1,7 +1,12 @@
+cc_library(
+    name = "lib",
+    srcs = ["lib.cc"],
+    hdrs = ["lib.hh"],
+
+)
+
 cc_binary(
     name = "hello_worlder.exe",
-    srcs = select({
-        "@platforms//os:linux": ["linux_main.cc"],
-        "@platforms//os:windows": ["win_main.cc"],
-    }),
+    srcs = ["main.cc"],
+    deps = [":lib"],
 )

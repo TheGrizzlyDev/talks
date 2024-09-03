@@ -1,2 +1,2 @@
 build:win --platforms=//platforms:win_amd64_mingw
-build:linux --platforms=//platforms:win_amd64_mingw
+build:linux --platforms=//platforms:linux_amd64_gcc

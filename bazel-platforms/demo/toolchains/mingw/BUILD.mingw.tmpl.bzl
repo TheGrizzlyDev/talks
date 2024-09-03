@@ -17,11 +17,13 @@ mingw_cc_toolchain_config(
     name = "toolchain_config"
 )
 
+# https://github.com/bazelbuild/bazel/blob/master/src/main/starlark/builtins_bzl/common/cc/cc_toolchain.bzl
 cc_toolchain(
     name = "cc_toolchain",
     toolchain_identifier = "mingw_{exec_os}_{exec_arch}",
     toolchain_config = ":toolchain_config",
     all_files = ":all_srcs",
+    ar_files = ":all_srcs",
     compiler_files = ":all_srcs",
     dwp_files = ":all_srcs",
     linker_files = ":all_srcs",

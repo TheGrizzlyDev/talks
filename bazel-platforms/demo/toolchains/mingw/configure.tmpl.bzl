@@ -19,6 +19,9 @@ def mingw_cc_toolchain_config_impl(ctx):
         action_config(
             action_name = ACTION_NAMES.cpp_link_static_library,
             tools = [tool(path="bin/x86_64-w64-mingw32-ar")],
+            implies = [
+                "archiver_flags",
+            ],
         ),
     ]
 

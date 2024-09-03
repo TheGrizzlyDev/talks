@@ -1,14 +1,50 @@
-#include <windows.h>
-#include <iostream>
+#include "lib.hh"
 
-int main() {
+#if defined(__linux__)
+
+#include <unistd.h>
+#include <iostream>
+#include <fcntl.h>
+#include <string.h>
+
+bool write_hello_world(const char* file)
+{
+    int fd;
+    ssize_t bytes_written;
+    const char *data = "Hello, World!\n ";
+    
+    // Open (or create) a file for writing
+    fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd == -1) {
+        return false;
+    }
+
+    // Write data to the file
+    bytes_written = write(fd, data, strlen(data));
+    if (bytes_written == -1) {
+        close(fd);
+        return false;
+    }
+
+    // Close the file descriptor
+    close(fd);
+    return true;
+}
+
+
+#elif defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
+
+#include <windows.h>
+
+bool write_hello_world(const char* file)
+{
     HANDLE hFile;
     DWORD dwBytesWritten = 0;
     LPCSTR data = "Hello, World!\r\n";
     
     // Create a new file or open an existing one
     hFile = CreateFile(
-        "hello_world.txt",         // File name
+        file,                      // File name
         GENERIC_WRITE,             // Open for writing
         0,                         // Do not share
         NULL,                      // Default security
@@ -18,8 +54,7 @@ int main() {
     );
 
     if (hFile == INVALID_HANDLE_VALUE) {
-        std::cerr << "Could not open or create file." << std::endl;
-        return 1;
+        return false;
     }
 
     // Write data to the file
@@ -32,15 +67,12 @@ int main() {
     );
 
     if (!bErrorFlag) {
-        std::cerr << "Failed to write to file." << std::endl;
         CloseHandle(hFile);
-        return 1;
+        return false;
     }
-
-    std::cout << "Hello, World! written to hello_world.txt" << std::endl;
 
     // Close the file handle
     CloseHandle(hFile);
-
-    return 0;
+    return true;
 }
+#endif
