@@ -60,9 +60,6 @@ def mingw_cc_toolchain_config_impl(ctx):
         cxx_builtin_include_directories = [
             # TODO figure out how to remove this
             "/home/antonio/.cache/bazel/_bazel_antonio/11619844efe16372c25298fcb26ed920/external/_main~_repo_rules~mingw_linux_x86_64_toolchain/lib/clang/19/include/",
-            # "%sysroot%/lib/clang/19/include/",
-            # "%sysroot%/x86_64-w64-mingw32/include/",
-            # "%sysroot%/x86_64-w64-mingw32/include/c++/v1/",
         ],
         builtin_sysroot = "external/{repo}/"
     )
