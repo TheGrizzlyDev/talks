@@ -1,4 +1,4 @@
-load(":multi_platform.bzl", "multi_platform_cc_binary", "multi_platform_cc_test")
+load("//platforms:multi_platform.bzl", "multi_platform_cc_binary", "multi_platform_cc_test")
 
 cc_library(
     name = "lib",

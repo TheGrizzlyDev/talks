@@ -1,17 +1,6 @@
-platform(
-    name = "win_amd64_mingw",
-    constraint_values = [
-        "@platforms//os:windows",
-        "@platforms//cpu:x86_64",
-        "@bazel_tools//tools/cpp:mingw",
-    ],
-)
+load(":platforms.bzl", "SUPPORTED_PLATFORMS")
 
-platform(
-    name = "linux_amd64_gcc",
-    constraint_values = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-        "@bazel_tools//tools/cpp:gcc",
-    ],
-)
+[
+    platform(name = name, constraint_values = value['constraint_values']) 
+    for (name, value) in SUPPORTED_PLATFORMS.items()
+]
