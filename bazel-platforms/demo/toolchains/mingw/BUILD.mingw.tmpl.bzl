@@ -5,14 +5,6 @@ filegroup(
     srcs = glob(["**/*"]),
 )
 
-filegroup(
-    name = "compiler_srcs",
-    srcs = glob([
-        "bin/*-gcc",
-        "bin/*-g++",
-    ])
-)
-
 mingw_cc_toolchain_config(
     name = "toolchain_config"
 )

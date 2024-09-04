@@ -2,7 +2,6 @@ load("@bazel_tools//tools/build_defs/cc:action_names.bzl", "ACTION_NAMES")
 load("@bazel_tools//tools/cpp:cc_toolchain_config_lib.bzl", "action_config", "tool", "feature", "flag_set", "flag_group")
 
 def mingw_cc_toolchain_config_impl(ctx):
-    print(ACTION_NAMES)
     action_configs = [
         action_config(
             action_name = ACTION_NAMES.c_compile,
@@ -26,10 +25,6 @@ def mingw_cc_toolchain_config_impl(ctx):
                 "archiver_flags",
             ],
         ),
-        # action_config(
-        #     action_name = ACTION_NAMES.strip,
-        #     tools = [tool(path="bin/x86_64-w64-mingw32-strip")],
-        # ),
     ]
 
     no_stripping_feature = feature(name = "no_stripping")

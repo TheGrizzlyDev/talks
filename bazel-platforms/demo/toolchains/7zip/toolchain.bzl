@@ -1,9 +1,24 @@
 Toolchain7ZipInfo = provider()
 
+def unzip_builder(bin):
+    def unzip(ctx, source, destination):
+        ctx.actions.run(
+            outputs = [destination],
+            inputs = [source],
+            executable = bin,
+            arguments = [
+                "x",
+                source.path,
+                "-o%s" % destination.path,
+            ],
+        )
+    return unzip
+    
+
 def toolchain_7z_impl(ctx):
     toolchain_info = platform_common.ToolchainInfo(
-        executable = Toolchain7ZipInfo(
-            executable = ctx.file.exe,
+        toolchain_7zip_info = Toolchain7ZipInfo(
+            unzip = unzip_builder(ctx.file.exe),
         ),
     )
     return [toolchain_info]

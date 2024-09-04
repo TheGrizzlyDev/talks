@@ -1,10 +1,10 @@
-# load("//toolchains/7zip:defs.bzl", "unzip_7z")
+load("//toolchains/7zip:defs.bzl", "unzip_7z")
 # load(":toolchain.bzl", "mingw_cc_toolchain_config")
 
-# unzip_7z(
-#     name = "mingw_win_x86_64",
-#     archive = "@dist_mingw_win_x86_64//file",
-# )
+unzip_7z(
+    name = "mingw_win_x86_64",
+    archive = "@dist_mingw_win_x86_64//file",
+)
 
 # mingw_cc_toolchain_config(
 #     name = "mingw_win_x86_64_toolchain_config"

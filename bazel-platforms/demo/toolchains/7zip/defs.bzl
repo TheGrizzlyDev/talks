@@ -1,16 +1,7 @@
 def unzip_7z_impl(ctx):
     toolchain_7z = ctx.toolchains["//toolchains/7zip:toolchain_type"]
     destination = ctx.actions.declare_directory(ctx.attr.name)
-    ctx.actions.run(
-        outputs = [destination],
-        inputs = [ctx.file.archive],
-        executable = toolchain_7z.executable.executable,
-        arguments = [
-            "x",
-            ctx.file.archive.path,
-            "-o%s" % destination.path,
-        ],
-    )
+    toolchain_7z.toolchain_7zip_info.unzip(ctx, ctx.file.archive, destination)
     return [
         DefaultInfo(
             files = depset([destination]),
