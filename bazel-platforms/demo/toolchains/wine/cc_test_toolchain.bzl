@@ -13,13 +13,16 @@ def _get_test_runner(ctx, binary_info, processed_environment, **args):
         output=wrapper_script,
         substitutions={
             "{WINEPREFIX}": "tmp_prefix",
-            "{ARGS}": "dir",
+            "{ARGS}": "{bin}".format(bin=binary_info.executable.short_path),
         },
         is_executable=True,
     )
+    runfiles = ctx.runfiles([binary_info.executable]).merge(binary_info.runfiles)
     return [
         DefaultInfo(
             executable=wrapper_script,
+            files=depset(direct=[wrapper_script], transitive=[binary_info.files]),
+            runfiles=runfiles,
         )
     ]
 
