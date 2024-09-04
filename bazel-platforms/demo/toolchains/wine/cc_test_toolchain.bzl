@@ -4,7 +4,6 @@ GetRunnerInfo = provider()
 _WINE_RUN_TMPL_ARG_NAME = "wine-run-template-path"
 
 def _get_test_runner(ctx, binary_info, processed_environment, **args):
-    print(binary_info)
     wrapper_script = ctx.actions.declare_file("run_test_with_wine.sh")
     ctx.actions.expand_template(
         template=args[_WINE_RUN_TMPL_ARG_NAME],

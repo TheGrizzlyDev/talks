@@ -1,4 +1,4 @@
-load(":multi_platform.bzl", "transition_binary", "transition_test")
+load(":multi_platform.bzl", "multi_platform_cc_binary", "multi_platform_cc_test")
 
 cc_library(
     name = "lib",
@@ -6,7 +6,7 @@ cc_library(
     hdrs = ["lib.hh"],
 )
 
-cc_test(
+multi_platform_cc_test(
     name = "lib_test.exe",
     srcs = glob(["*_test.cc"]),
     deps = [
@@ -16,34 +16,10 @@ cc_test(
     ],
 )
 
-transition_test(
-    name = "win_hello_test.exe",
-    dep  = ":lib_test.exe",
-    platform   = "//platforms:win_amd64_mingw",
-)
-
-transition_test(
-    name = "linux_lib_test.exe",
-    dep  = ":lib_test.exe",
-    platform   = "//platforms:linux_amd64_gcc",
-)
-
-cc_binary(
-    name = "hello_worlder.exe",
+multi_platform_cc_binary(
+    name = "hello_worlder",
     srcs = ["main.cc"],
     deps = [
         ":lib",
     ],
-)
-
-transition_binary(
-    name = "win_hello_worlder.exe",
-    dep  = ":hello_worlder.exe",
-    platform   = "//platforms:win_amd64_mingw",
-)
-
-transition_binary(
-    name = "linux_hello_worlder.exe",
-    dep  = ":hello_worlder.exe",
-    platform   = "//platforms:linux_amd64_gcc",
 )
