@@ -56,3 +56,6 @@ mingw_linux_toolchain(
 
 # Register mingw toolchains
 register_toolchains("@mingw_linux_x86_64_toolchain//:toolchain")
+
+# Register wine test toolchains
+register_toolchains("//toolchains/wine:system_wine_cc_test_toolchain")

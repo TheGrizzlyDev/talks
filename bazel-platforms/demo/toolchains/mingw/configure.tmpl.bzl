@@ -15,6 +15,9 @@ def mingw_cc_toolchain_config_impl(ctx):
         action_config(
             action_name = ACTION_NAMES.cpp_link_executable,
             tools = [tool(path="bin/x86_64-w64-mingw32-g++")],
+            implies = [
+                "no_stripping",
+            ],
         ),
         action_config(
             action_name = ACTION_NAMES.cpp_link_static_library,
@@ -23,7 +26,13 @@ def mingw_cc_toolchain_config_impl(ctx):
                 "archiver_flags",
             ],
         ),
+        # action_config(
+        #     action_name = ACTION_NAMES.strip,
+        #     tools = [tool(path="bin/x86_64-w64-mingw32-strip")],
+        # ),
     ]
+
+    no_stripping_feature = feature(name = "no_stripping")
 
     default_linker_flags = feature(
         name = "default_linker_flags",
@@ -38,6 +47,7 @@ def mingw_cc_toolchain_config_impl(ctx):
 
     features = [
         default_linker_flags,
+        no_stripping_feature,
     ]
 
     return cc_common.create_cc_toolchain_config_info(
