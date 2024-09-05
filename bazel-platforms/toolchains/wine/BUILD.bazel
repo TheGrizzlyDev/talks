@@ -1,0 +1,17 @@
+load(":cc_test_toolchain.bzl", "toolchain_wine_cc_testing")
+
+toolchain_wine_cc_testing(
+    name = "system_wine_cc_test",
+)
+
+toolchain(
+    name = "system_wine_cc_test_toolchain",
+    exec_compatible_with = [
+        "@platforms//os:linux",
+    ],
+    target_compatible_with = [
+        "@platforms//os:windows",
+    ],
+    toolchain = ":system_wine_cc_test",
+    toolchain_type = "@bazel_tools//tools/cpp:test_runner_toolchain_type",
+)
