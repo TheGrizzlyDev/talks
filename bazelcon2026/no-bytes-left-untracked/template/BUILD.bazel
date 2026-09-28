@@ -1,0 +1,4 @@
+exports_files(
+    ["BazelCon_Amst26_ppt.pptx"],
+    visibility = ["//bazelcon2026/no-bytes-left-untracked:__pkg__"],
+)

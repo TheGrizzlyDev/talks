@@ -1,0 +1,48 @@
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary")
+load("//infra/bazel:qrcode.bzl", "qrcode")
+
+py_binary(
+    name = "build_deck",
+    srcs = ["build_deck.py"],
+    deps = [
+        requirement("lxml"),
+        requirement("python-pptx"),
+    ],
+)
+
+# One QR target per URL. Depend on :qr_<name> to pull just that PNG.
+qrcode(
+    name = "qr_repo",
+    data = "https://github.com/bazel-contrib/supply-chain",
+)
+
+qrcode(
+    name = "qr_valact",
+    data = "https://bazel.build/extending/rules#validation-actions",
+)
+
+qrcode(
+    name = "qr_bof",
+    data = "https://events.linuxfoundation.org/bazelcon/program/schedule/?id=1258784",
+)
+
+genrule(
+    name = "deck",
+    srcs = [
+        "//bazelcon2026/no-bytes-left-untracked/template:BazelCon_Amst26_ppt.pptx",
+        ":qr_repo",
+        ":qr_valact",
+        ":qr_bof",
+    ],
+    outs = ["NoBytesLeftUntracked_BazelCon.pptx"],
+    cmd = """
+$(execpath :build_deck) \\
+    --template $(execpath //bazelcon2026/no-bytes-left-untracked/template:BazelCon_Amst26_ppt.pptx) \\
+    --qr-repo $(execpath :qr_repo) \\
+    --qr-valact $(execpath :qr_valact) \\
+    --qr-bof $(execpath :qr_bof) \\
+    --output $@
+""",
+    tools = [":build_deck"],
+)
