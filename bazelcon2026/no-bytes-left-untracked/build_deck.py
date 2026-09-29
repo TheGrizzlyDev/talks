@@ -289,38 +289,39 @@ for ph in s.placeholders:
         clear_tf(tf)
         add_paragraph(tf, "No Bytes Left Untracked", size=44, bold=True,
                       color=WHITE, bullet=False, first=True)
-        add_paragraph(tf, "Bazel Supply Chain Security", size=30,
+        add_paragraph(tf, "Bazel Supply Chain Security", size=25,
                       color=WHITE, bullet=False)
     elif ph.placeholder_format.idx == 1:
         tf = ph.text_frame
         clear_tf(tf)
-        add_paragraph(tf, "Antonio Di Stefano  ·  Yannic Bonenberger",
+        add_paragraph(tf, "Antonio Di Stefano · Yannic Bonenberger",
                       size=18, bold=True, color=WHITE, bullet=False, first=True)
 
 
-# ---------- Slide 2: Why this talk, why now ----------
+# ---------- Slide 2: Why we all need to care ----------
 s = prs.slides.add_slide(L_BODY)
-add_title(s, "Why this talk, why now")
+add_title(s, "Why we all need to care")
 add_body_bullets(s, [
-    ("Supply-chain incidents keep landing: xz backdoor, npm typosquats, SolarWinds", 0),
-    ("\"Correct\" builds aren't enough. We need to prove what went in", 1),
-    ("Regulation is here: SLSA, EO 14028, EU CRA", 0),
-    ("SBOMs went from wish-list to shipping requirement", 1),
-    ("Bazel already knows every action and every input", 0),
-    ("That dependency graph is an SBOM waiting to be emitted", 1),
+    ("High frequency of supply-chain attacks: xz, npm, SolarWinds, ...", 0),
+    ("\"Correct\" builds aren't sufficient anymore, we need to prove what went into production", 1),
+    ("Regulatory mandates: EO 14028, EU CRA", 0),
+    ("SBOMs went from nice-to-have to legal requirement for software", 1),
+    ("Bazel already knows everything about the build", 0),
+    ("That target graph is an SBOM waiting to be emitted", 1),
 ], base_size=18)
 
 
 # ---------- Slide 3: The status quo falls short ----------
 s = prs.slides.add_slide(L_BODY)
-add_title(s, "The status quo falls short")
+add_title(s, "The status quo often falls short")
 add_body_bullets(s, [
     ("Ecosystem manifests are siloed", 0),
     ("pom.xml, go.mod, package.json, Cargo.toml. One per language", 1),
-    ("Polyglot Bazel graphs need one unified view", 0),
-    ("Patching third-party BUILDs to add metadata creates forks that rot", 0),
     ("Post-hoc scanners guess at what the build actually consumed", 0),
     ("The truth is in the action graph. We should read it there", 1),
+    ("Organizations are increasingly moving to polyglot monorepos", 0),
+    ("Consistent tooling for provenence and conformance across ecosystems is a must", 1),
+    ("Patching Bazel modules to add the necessary metadata is tedious", 0),
 ], base_size=18)
 
 
@@ -346,15 +347,12 @@ add_qr_with_label(s, QR_REPO,
 
 # ---------- Slide 5: Headline @package_metadata 1.0 ----------
 s = prs.slides.add_slide(L_TITLE_ONLY)
-add_title(s, "@package_metadata 1.0", size=44)
+add_title(s, "@package_metadata v1.0", size=44)
 # Center a subtitle + bullet block underneath the title
 tb = s.shapes.add_textbox(Emu(311700), Emu(1500000), Emu(8520600), Emu(600000))
 tb.fill.background(); tb.line.fill.background()
 tf = tb.text_frame; tf.word_wrap = True
 clear_tf(tf)
-add_paragraph(tf, "Recently shipped. Stable API.",
-              size=26, bold=True, color=WHITE,
-              bullet=False, align=PP_ALIGN.CENTER, first=True)
 
 # Three "cards" horizontally
 card_w = 2650000
@@ -365,9 +363,9 @@ total_w = 3 * card_w + 2 * gap
 start_left = (9144000 - total_w) // 2
 
 cards = [
-    ("Stable public API", "Safe to depend on. No breaking changes without a major bump."),
-    ("Docs published", "Ruleset integrations landing:\nrules_cc, rules_java, rules_python."),
-    ("BCR validation", "On the way. Modules ship metadata by default."),
+    ("Stable public API", "Safe to depend on. No breaking changes."),
+    ("Extensible", "Many customization points so that organizations can meet their requirements."),
+    ("Comprehensive docs", "Easy to get started."),
 ]
 for i, (heading, body) in enumerate(cards):
     left = start_left + i * (card_w + gap)
@@ -459,25 +457,25 @@ s = prs.slides.add_slide(L_TITLE_ONLY)
 add_title(s, "The core rule: package_metadata")
 
 code_lines = [
-    'load("@package_metadata//:defs.bzl", "package_metadata")',
+    'load("@package_metadata//rules:package_metadata.bzl", "package_metadata")',
     "",
     "package_metadata(",
     '    name = "metadata",',
     '    purl = "pkg:generic/acme/widget@1.2.3",',
     "    attributes = [",
-    '        ":license_apache2",',
     '        ":owner_platform_team",',
+    '        "@package_metadata//licenses/spdx:Apache-2.0",',
     "    ],",
     ")",
 ]
 add_textbox(s, left=311700, top=1000000, width=8520600, height=2100000,
-            lines=code_lines, fill=CODE_BG, font_size=14,
+            lines=code_lines, fill=CODE_BG, font_size=13,
             color=CODE_TEXT, mono=True)
 
 add_bullets_textbox(s, 311700, 3200000, 8520600, 1600000, [
-    "purl is required. Canonical identity via the PURL spec",
-    "attributes is an open list of targets implementing PackageAttributeInfo",
-    "Emits PackageMetadataInfo plus a JSON metadata file",
+    "purl is required. Canonical identity of the (third-party) package",
+    "attributes is an open list of additional metadata (license, copyright, ...)",
+    "Emits a single JSON file with all metadata",
 ], base_size=16, color=WHITE)
 
 
@@ -510,7 +508,7 @@ add_body_bullets(s, [
 
 # ---------- Slide 10: Extensibility #2: New attribute kinds ----------
 s = prs.slides.add_slide(L_TITLE_ONLY)
-add_title(s, "Extensibility #2: new attribute kinds, not new providers")
+add_title(s, "Extensibility #2: organization-specific attributes")
 
 add_bullets_textbox(s, 311700, 1000000, 4200000, 3600000, [
     ("Extend by adding attribute kinds carried in PackageMetadataInfo.attributes", 0),
@@ -523,23 +521,21 @@ add_bullets_textbox(s, 311700, 1000000, 4200000, 3600000, [
 ], base_size=14, color=WHITE)
 
 code_lines = [
-    "# Custom attribute kind",
-    'CriticalityInfo = provider(fields = ["level"])',
-    "",
     "def _criticality_impl(ctx):",
-    "    return [PackageAttributeInfo(",
-    '        kind = "criticality",',
-    "        data = ...,",
-    "    )]",
+    "    return [",
+    "        PackageAttributeInfo(",
+    '            kind = "com.example.criticality",',
+    "            attributes = ctx.file.foo,",
+    "        ),",
+    "    ]",
     "",
-    "# Attach via the same package_metadata rule",
     "package_metadata(",
     '    name = "metadata",',
     '    purl = "pkg:generic/acme/widget@1.2.3",',
     "    attributes = [",
-    '        ":license_apache2",',
     '        ":owner_platform_team",',
-    '        ":criticality_tier1",',
+    '        "//compliance/criticality:tier-1",',
+    '        "//compliance/license:commecial-3",',
     "    ],",
     ")",
 ]
