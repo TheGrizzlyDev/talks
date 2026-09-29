@@ -300,11 +300,12 @@ for ph in s.placeholders:
 
 # ---------- Slide 2: Why we all need to care ----------
 s = prs.slides.add_slide(L_BODY)
-add_title(s, "Why we all need to care")
+add_title(s, "Why we should all care")
 add_body_bullets(s, [
     ("High frequency of supply-chain attacks: xz, npm, SolarWinds, ...", 0),
     ("\"Correct\" builds aren't sufficient anymore, we need to prove what went into production", 1),
     ("Regulatory mandates: EO 14028, EU CRA", 0),
+    ("Guidlines: SLSA", 0),
     ("SBOMs went from nice-to-have to legal requirement for software", 1),
     ("Bazel already knows everything about the build", 0),
     ("That target graph is an SBOM waiting to be emitted", 1),
@@ -475,7 +476,7 @@ add_textbox(s, left=311700, top=1000000, width=8520600, height=2100000,
 add_bullets_textbox(s, 311700, 3200000, 8520600, 1600000, [
     "purl is required. Canonical identity of the (third-party) package",
     "attributes is an open list of additional metadata (license, copyright, ...)",
-    "Emits a single JSON file with all metadata",
+    "Emits a metadata file plus dedicated attribute files (JSON)",
 ], base_size=16, color=WHITE)
 
 
@@ -521,14 +522,20 @@ add_bullets_textbox(s, 311700, 1000000, 4200000, 3600000, [
 ], base_size=14, color=WHITE)
 
 code_lines = [
+    "# file: criticality.bzl
     "def _criticality_impl(ctx):",
     "    return [",
     "        PackageAttributeInfo(",
     '            kind = "com.example.criticality",',
-    "            attributes = ctx.file.foo,",
+    "            attributes = ctx.file.disclaimer,",
     "        ),",
     "    ]",
     "",
+    "# file: BUILD | BUILD.bazel",
+    "criticality(",
+    '    name = "tier-1",',
+    '    disclaimer = "tier-1.txt",',
+    ")",
     "package_metadata(",
     '    name = "metadata",',
     '    purl = "pkg:generic/acme/widget@1.2.3",',
