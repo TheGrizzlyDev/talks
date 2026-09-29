@@ -540,9 +540,9 @@ code_lines = [
     '    name = "metadata",',
     '    purl = "pkg:generic/acme/widget@1.2.3",',
     "    attributes = [",
-    '        "//compliance/teams:owner_platform_team",',
     '        ":tier-1",',
     '        "//compliance/license:commecial-3",',
+    '        "//compliance/teams:owner_platform_team",',
     "    ],",
     ")",
 ]
