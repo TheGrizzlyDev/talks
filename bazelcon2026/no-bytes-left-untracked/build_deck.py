@@ -522,7 +522,7 @@ add_bullets_textbox(s, 311700, 1000000, 4200000, 3600000, [
 ], base_size=14, color=WHITE)
 
 code_lines = [
-    "# file: criticality.bzl
+    "# file: criticality.bzl",
     "def _criticality_impl(ctx):",
     "    return [",
     "        PackageAttributeInfo(",
