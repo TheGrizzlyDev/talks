@@ -305,7 +305,7 @@ add_body_bullets(s, [
     ("High frequency of supply-chain attacks: xz, npm, SolarWinds, ...", 0),
     ("\"Correct\" builds aren't sufficient anymore, we need to prove what went into production", 1),
     ("Regulatory mandates: EO 14028, EU CRA", 0),
-    ("Guidlines: SLSA", 0),
+    ("Guidelines: SLSA", 0),
     ("SBOMs went from nice-to-have to legal requirement for software", 1),
     ("Bazel already knows everything about the build", 0),
     ("That target graph is an SBOM waiting to be emitted", 1),
@@ -321,7 +321,7 @@ add_body_bullets(s, [
     ("Post-hoc scanners guess at what the build actually consumed", 0),
     ("The truth is in the action graph. We should read it there", 1),
     ("Organizations are increasingly moving to polyglot monorepos", 0),
-    ("Consistent tooling for provenence and conformance across ecosystems is a must", 1),
+    ("Consistent tooling for provenance and conformance across ecosystems is a must", 1),
     ("Patching Bazel modules to add the necessary metadata is tedious", 0),
 ], base_size=18)
 
